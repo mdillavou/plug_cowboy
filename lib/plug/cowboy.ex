@@ -267,7 +267,7 @@ defmodule Plug.Cowboy do
     """)
     if status == 400 and empty_headers?(request) do
       Logger.error("""
-      Cowboy returned 400 because it was unable to parse the request headers.
+      #{inspect self()} Cowboy returned 400 because it was unable to parse the request headers.
 
       This may happen because there are no headers, or there are too many headers
       or the header name or value are too large (such as a large cookie).
