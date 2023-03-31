@@ -258,7 +258,13 @@ defmodule Plug.Cowboy do
     [onresponse: onresponse] ++ protocol_options
   end
 
-  defp onresponse(status, _headers, _body, request) do
+  defp onresponse(status, headers, body, request) do
+    Logger.info("""
+    onresponse #{inspect self()} #{status}
+    headers: #{inspect headers}
+    body: #{inspect body}
+    request: #{inspect request}
+    """)
     if status == 400 and empty_headers?(request) do
       Logger.error("""
       Cowboy returned 400 because it was unable to parse the request headers.
